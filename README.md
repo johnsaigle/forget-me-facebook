@@ -1,6 +1,6 @@
-# Forget me, Facebook!
+_This repo is a work in progress...._
 
-**This repo is a work in progress....**
+# Forget me, Facebook!
 
 Periodically delete old Facebook interactions (posts, likes, tags, event attendance, etc.)
 
