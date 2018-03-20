@@ -1,4 +1,4 @@
-_This repo is a work in progress...._
+_This repo is a work in progress. Please read and contribute to the discussion taking place in the open Issues._
 
 # Forget me, Facebook!
 
