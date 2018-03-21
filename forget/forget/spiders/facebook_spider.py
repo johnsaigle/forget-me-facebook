@@ -24,7 +24,7 @@ class LoginSpider(scrapy.Spider):
         password = credentials[1]
         return scrapy.FormRequest.from_response(
             response,
-            formdata={'email': email, 'pass': password},  # TODO: prompt for password
+            formdata={'email': email, 'pass': password},
             callback=self.after_login
         )
 
