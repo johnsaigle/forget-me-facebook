@@ -50,7 +50,6 @@ class LoginSpider(scrapy.Spider):
         credentials = prompt_for_credentials()
         email = credentials[0]
         password = credentials[1]
-        self.logger.debug("Got credentials. Email: {} and Password <some password>".format(email))
         return scrapy.FormRequest.from_response(
             response,
             formdata={'email': email, 'pass': password},
