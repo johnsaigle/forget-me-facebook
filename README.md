@@ -6,8 +6,8 @@ Periodically delete old Facebook interactions (posts, likes, tags, event attenda
 
 ## Install
 
-Install casperjs via npm. Have python3.
+Clone this repo and then run `pip install -r requirements.txt`
 
 ## Run
 
-`python3 forget.py` -- this will run a python script that runs the casper script. It'll fill the email and password fields on Facebook but won't submit them. Then it will wait 6 seconds and take a screenshot to prove it.
+`cd forget/ && scrapy crawl login` -- this will launch the facebook `LoginSpider`. Right now this just prompts for your credentials via command line. It will display a message whether you have succeeded or failed, and then quit. **This command must be run from within the `scrapy` root directory, i.e. `forget/`**.
