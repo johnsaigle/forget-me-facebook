@@ -64,22 +64,16 @@ class LoginSpider(scrapy.Spider):
             return
         self.logger.info("Login success.")
 
-        # TODO: investigate whether this is the best place for this request
-        # prepare a request for the 'On This Day' feature
-        url = 'https://www.facebook.com/onthisday'
-        yield scrapy.Request(url=url, callback=self.on_this_day)
+        # get the profile username
+        profile_link = response.xpath('//div[@data-click="profile_icon"]/a/@href').extract_first()
+        nickname = profile_link.split('/')[3] # e.g. https://facebook.com/nickname; nickname is the 4th element
+        self.logger.debug("Nickname is " + nickname)
+        url = 'https://facebook.com/' + nickname + '/activitylog'
+        self.logger.debug('Navigating to your timeline (in a future version!)')
 
-    def on_this_day(self, response):
-        """Scrape contents of Facebook's 'On this Day' page"""
-        # Validate that we reached the right page
-        if not page_has_title(response, 'On this Day'):
-            # Don't proceed if we're on the wrong page
-            self.logger.error('Failed to reach On This Day page.')
-            write_response_body_to_file('onthisday_fail.html', response.body)
-            return
-        self.logger.debug("Writing successful response body to file. Learn from it!")
-        self.write_response_body_to_file('onthisday_success.html', response.body)
-        """TODO: Next steps: follow all the anchor tags with aria-label="Story options" -- these are the
-        '...' buttons on each element on the 'On this Day' page.  When this is clicked, <li>s and more <a>
-        tags will appear with 'data-feed-option-name="FeedDeleteOption"'.  These steps together should give
-        a list of deletion choices.  Once we've got that, we can choose one to delete."""
+        """TODO: Next steps: Navigate to timeline and delete from there. It's simpler than On This Day.
+
+        Example of timeline deletion
+        ajaxify="/ajax/timeline/delete/confirm?identifier=S%3A_I520626340%3A10150283244796341&location=3&story_dom_id=u_jsonp_10_3&causal_container_id=u_jsonp_10_i"
+        The actual POST requst: /ajax/timeline/delete?identifier=S%3A_I520626340%3A10150283244786341&location=3&story_dom_id=u_jsonp_10_5
+        """
